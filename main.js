@@ -1,3 +1,8 @@
+import { renderProducts } from './products';
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderProducts('product-list');
+});
 
 import { products } from './modules/productos.js';
 import { addToCart, renderCart, removeFromCart, cart } from './modules/cart.js';
@@ -120,4 +125,3 @@ Para actualizar listas de forma inmutable.
 Rest parameters: usarlo en al menos una función, por ejemplo para agregar varios productos al carrito de una vez.
 
 */
-
