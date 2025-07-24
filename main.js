@@ -1,3 +1,54 @@
+
+import { products } from './modules/productos.js';
+import { addToCart, renderCart, removeFromCart, cart } from './modules/cart.js';
+
+
+const productsContainer = document.createElement('div');
+productsContainer.id = 'products';
+document.body.appendChild(productsContainer);
+
+const cartContainer = document.createElement('div');
+cartContainer.id = 'cart';
+document.body.appendChild(cartContainer);
+
+
+function renderProducts() {
+  productsContainer.innerHTML = '';
+  for (const product of products) {
+    const div = document.createElement('div');
+    div.innerHTML = `
+      <p><strong>${product.nombre}</strong> - $${product.precio}</p>
+      <button class="add" data-id="${product.id}">Agregar al carrito</button>
+    `;
+    productsContainer.appendChild(div);
+  }
+}
+
+
+productsContainer.addEventListener('click', e => {
+  if (e.target.classList.contains('add')) {
+    const id = Number(e.target.dataset.id);
+    const product = products.find(p => p.id === id);
+    if (product) {
+      addToCart(product);
+      renderCart(cartContainer);
+    }
+  }
+});
+
+
+cartContainer.addEventListener('click', e => {
+  if (e.target.classList.contains('remove')) {
+    const id = Number(e.target.dataset.id);
+    removeFromCart(id);
+    renderCart(cartContainer);
+  }
+});
+
+
+renderProducts();
+renderCart(cartContainer);
+
 /* 
 Hola equipo de desarrollo:
 Mi nombre es Kevin R. y necesito que desarrollen un simulador de una 
@@ -69,3 +120,4 @@ Para actualizar listas de forma inmutable.
 Rest parameters: usarlo en al menos una función, por ejemplo para agregar varios productos al carrito de una vez.
 
 */
+
